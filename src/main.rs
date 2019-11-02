@@ -1,7 +1,13 @@
 #![no_std]
 #![no_main]
+#![test_runner(crate::tests::test_runner)]
+#![feature(custom_test_frameworks)]
+#![reexport_test_harness_main = "test_main"]
 
+#[macro_use]
 mod vga;
+mod tests;
+mod qemu;
 
 use core::panic::PanicInfo;
 
@@ -13,13 +19,12 @@ fn panic(info: &PanicInfo) -> ! {
 
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
-    let mut i = 0;
-    loop {
-        println!("We are at: {}", i);
-        i += 1;
+    #[cfg(test)]
+    test_main();
 
-        if i == 300 {
-            panic!("No shiny things left here, the Niffler runs away.");
-        }
-    }
+    println!("A niffler appeared!");
+
+    loop {}
 }
+
+

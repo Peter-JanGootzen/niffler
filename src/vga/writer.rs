@@ -4,8 +4,7 @@ use lazy_static::lazy_static;
 use spin::Mutex;
 use crate::vga::screen_char::ScreenChar;
 use crate::vga::color::Color;
-use crate::vga::color::ColorCode;
-
+use crate::vga::color::ColorCode; 
 const BUFFER_HEIGHT: usize = 25;
 const BUFFER_WIDTH: usize = 80;
 
