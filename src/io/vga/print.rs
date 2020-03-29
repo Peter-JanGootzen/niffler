@@ -1,6 +1,6 @@
 use core::fmt;
 use core::fmt::Write;
-use crate::vga::writer::VGA_WRITER;
+use crate::io::vga::writer::VGA_WRITER;
 
 #[doc(hidden)]
 pub fn _print(args: fmt::Arguments) {
@@ -9,7 +9,7 @@ pub fn _print(args: fmt::Arguments) {
 
 #[macro_export]
 macro_rules! print {
-    ($($arg:tt)*) => ($crate::vga::print::_print(format_args!($($arg)*)));
+    ($($arg:tt)*) => ($crate::io::vga::print::_print(format_args!($($arg)*)));
 }
 #[macro_export]
 macro_rules! println {

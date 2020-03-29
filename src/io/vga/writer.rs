@@ -2,9 +2,9 @@ use volatile::Volatile;
 use core::fmt;
 use lazy_static::lazy_static;
 use spin::Mutex;
-use crate::vga::screen_char::ScreenChar;
-use crate::vga::color::Color;
-use crate::vga::color::ColorCode; 
+use crate::io::vga::screen_char::ScreenChar;
+use crate::io::vga::color::Color;
+use crate::io::vga::color::ColorCode; 
 const BUFFER_HEIGHT: usize = 25;
 const BUFFER_WIDTH: usize = 80;
 
@@ -85,6 +85,6 @@ lazy_static! {
     pub static ref VGA_WRITER: Mutex<Writer> = Mutex::new(Writer {
         column_position: 0,
         color_code: ColorCode::new(Color::Green, Color::Black),
-        buffer: unsafe { (&mut *(0xb8000 as *mut Buffer)) }
+        buffer: unsafe { &mut *(0xb8000 as *mut Buffer) }
     });
 }

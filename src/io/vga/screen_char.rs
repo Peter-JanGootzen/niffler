@@ -1,4 +1,4 @@
-use crate::vga::color::ColorCode;
+use crate::io::vga::color::ColorCode;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(C)]
