@@ -19,6 +19,14 @@ pub struct Writer {
     buffer: &'static mut Buffer,
 }
 
+lazy_static! {
+    pub static ref VGA_WRITER: Mutex<Writer> = Mutex::new(Writer {
+        column_position: 0,
+        color_code: ColorCode::new(Color::Green, Color::Black),
+        buffer: unsafe { &mut *(0xb8000 as *mut Buffer) }
+    });
+}
+
 impl Writer {
     pub fn write_string(&mut self, s: &str) {
         for byte in s.bytes() {
@@ -81,10 +89,14 @@ impl fmt::Write for Writer {
     }
 }
 
-lazy_static! {
-    pub static ref VGA_WRITER: Mutex<Writer> = Mutex::new(Writer {
-        column_position: 0,
-        color_code: ColorCode::new(Color::Green, Color::Black),
-        buffer: unsafe { &mut *(0xb8000 as *mut Buffer) }
-    });
+#[test_case]
+fn test_println_output() {
+    serial_print!("test_println_output... ");
+
+    let s = "The niffler sees something shiny";
+    println!("{}", s);
+    for (i, c) in s.chars().enumerate() {
+        let screen_char = VGA_WRITER.lock().buffer.chars[BUFFER_HEIGHT - 2][i].read();
+        assert_eq!(char::from(screen_char.ascii_character), c);
+    }
 }
