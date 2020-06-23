@@ -5,11 +5,11 @@ authors = ["Peter-Jan Gootzen <peterjan@gootzen.net>"]
 edition = "2018"
 
 [dependencies]
-bootloader = "0.8.2"
+bootloader = "0.9.4"
 volatile = "0.2.6"
 spin = "0.5.2"
-x86_64 = "0.7.5"
-uart_16550 = "0.2.1"
+x86_64 = "0.11.1"
+uart_16550 = "0.2.7"
 cfg-if = "0.1.10"
 
 [dependencies.lazy_static]

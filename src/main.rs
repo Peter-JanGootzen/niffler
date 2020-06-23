@@ -13,9 +13,14 @@ pub extern "C" fn _start() -> ! {
     println!("A niffler appeared on the VGA buffer!");
     serial_println!("A niffler appeared on the serial output");
 
+    niffler::init();
+
+    x86_64::instructions::interrupts::int3();
+
     #[cfg(test)]
     test_main();
 
+    println!("The CPU will now be spun into infinity and beyond!");
     loop {}
 }
 
