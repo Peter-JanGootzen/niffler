@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install QEMU
-      run: sudo apt install qemu-system
+      run: sudo apt update; sudo apt install qemu-system
     - name: Install nightly
       run: rustup toolchain install nightly; rustup override set nightly
     - name: Install rust-src

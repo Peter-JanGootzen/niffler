@@ -12,6 +12,7 @@ pub mod qemu;
 
 pub fn init() {
     cpu::interrupts::init_idt();
+    cpu::gdt::init();
 }
 
 use core::panic::PanicInfo;
