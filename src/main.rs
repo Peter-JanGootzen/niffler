@@ -19,7 +19,7 @@ pub extern "C" fn _start() -> ! {
     test_main();
 
     println!("The CPU will now be spun into infinity and beyond!");
-    loop {}
+    niffler::hlt_loop();
 }
 
 /// This function is called on panic.
@@ -27,7 +27,7 @@ pub extern "C" fn _start() -> ! {
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     println!("{}", info);
-    loop {}
+    niffler::hlt_loop();
 }
 
 #[cfg(test)]

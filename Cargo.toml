@@ -10,6 +10,8 @@ volatile = "0.2.6"
 spin = "0.5.2"
 x86_64 = "0.11.1"
 uart_16550 = "0.2.7"
+pic8259_simple = "0.2.0"
+pc-keyboard = "0.5.0"
 cfg-if = "0.1.10"
 
 [dependencies.lazy_static]

@@ -1,10 +1,13 @@
+use x86_64::instructions::interrupts::without_interrupts;
 use core::fmt;
 use core::fmt::Write;
 use crate::io::vga::writer::VGA_WRITER;
 
 #[doc(hidden)]
 pub fn _print(args: fmt::Arguments) {
-    VGA_WRITER.lock().write_fmt(args).unwrap();
+    without_interrupts(|| {
+        VGA_WRITER.lock().write_fmt(args).unwrap();
+    })
 }
 
 #[macro_export]

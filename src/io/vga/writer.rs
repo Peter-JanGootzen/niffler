@@ -91,12 +91,16 @@ impl fmt::Write for Writer {
 
 #[test_case]
 fn test_println_output() {
+    use core::fmt::Write;
     serial_print!("test_println_output... ");
 
     let s = "The niffler sees something shiny";
-    println!("{}", s);
-    for (i, c) in s.chars().enumerate() {
-        let screen_char = VGA_WRITER.lock().buffer.chars[BUFFER_HEIGHT - 2][i].read();
-        assert_eq!(char::from(screen_char.ascii_character), c);
-    }
+    x86_64::instructions::interrupts::without_interrupts(|| {
+        let mut writer = VGA_WRITER.lock();
+        writeln!(writer, "\n{}", s).expect("writeln failed");
+        for (i, c) in s.chars().enumerate() {
+            let screen_char = writer.buffer.chars[BUFFER_HEIGHT - 2][i].read();
+            assert_eq!(char::from(screen_char.ascii_character), c);
+        }
+    });
 }
